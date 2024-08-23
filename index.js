@@ -6,7 +6,7 @@ let ctr = 0;
 let todos = [];
 
 function addItem() {
-    if ((input.value).trim() === "") {
+    if (input.value.trim() === "") {
         alert("Please enter a task");
         return;
     }
@@ -17,8 +17,8 @@ function addItem() {
         TodoTextId: "todo-text-" + ctr,
         checkId: "check-" + ctr,
         title: input.value,
-        isEditing: false, 
-        isCompleted: false 
+        isEditing: false,
+        isCompleted: false
     });
     ctr++;
     renderTodos(todos);
@@ -34,12 +34,9 @@ function toggleEditItem(id) {
     todos = todos.map((todo) => {
         if (todo.todoId === id) {
             if (todo.isEditing) {
-                 const prevTodo = todo.title
-                const title = document.getElementById(todo.TodoTextId).value;
-                if(title.trim() === "") {
-                 todo.title = prevTodo
-                } else {
-                todo.title = title
+                const newTitle = document.getElementById(todo.TodoTextId).value.trim();
+                if (newTitle !== "") {
+                    todo.title = newTitle;
                 }
             }
             todo.isEditing = !todo.isEditing;
@@ -101,13 +98,13 @@ function renderTodos(todos) {
         if (todo.isEditing) {
             const inputField = document.getElementById(todo.TodoTextId);
             inputField.focus();
-            inputField.classList.add('outline-none', 'ring', 'ring-blue-500' , 'rounded-md', 'p-1');
+            inputField.classList.add('outline-none', 'ring', 'ring-blue-500', 'rounded-md', 'p-1');
         }
 
         document.getElementById(todo.checkId).addEventListener('click', () => {
             checkItem(todo.todoId);
         });
-        if(todo.isCompleted){
+        if (todo.isCompleted) {
             const inputText = document.getElementById(todo.TodoTextId);
             inputText.classList.add('line-through', 'text-gray-500');
         }
